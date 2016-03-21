@@ -1,0 +1,74 @@
+﻿<phone:PhoneApplicationPage
+    x:Name="pageRoot"
+    x:Class="Coptic_Hymns.SectionPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Coptic_Hymns"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:data="using:Coptic_Hymns.Data"
+    xmlns:telerikPrimitives="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Primitives"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" Background="{StaticResource PhoneChromeBrush}">
+
+    <toolkit:TransitionService.NavigationInTransition>
+        <toolkit:NavigationInTransition>
+            <toolkit:NavigationInTransition.Backward>
+                <toolkit:SwivelTransition Mode="BackwardIn"/>
+            </toolkit:NavigationInTransition.Backward>
+            <toolkit:NavigationInTransition.Forward>
+                <toolkit:SwivelTransition Mode="FullScreenIn"/>
+            </toolkit:NavigationInTransition.Forward>
+        </toolkit:NavigationInTransition>
+    </toolkit:TransitionService.NavigationInTransition>
+    <toolkit:TransitionService.NavigationOutTransition>
+        <toolkit:NavigationOutTransition>
+            <toolkit:NavigationOutTransition.Backward>
+                <toolkit:SlideTransition Mode="SlideDownFadeOut"/>
+            </toolkit:NavigationOutTransition.Backward>
+            <toolkit:NavigationOutTransition.Forward>
+                <toolkit:SwivelTransition Mode="FullScreenOut"/>
+            </toolkit:NavigationOutTransition.Forward>
+        </toolkit:NavigationOutTransition>
+    </toolkit:TransitionService.NavigationOutTransition>
+
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" MinHeight="92.5" />
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <!-- TitlePanel -->
+        <StackPanel Grid.Row="0" Margin="24,17,0,27.5">
+            <TextBlock x:Uid="Header3" Name="Header4"  Margin="0,35,0,0" FontSize="45" TextWrapping="NoWrap" Foreground="{StaticResource PhoneAccentBrush}" Loaded="LoadHeader" CharacterSpacing="-1"/>
+        </StackPanel>
+        
+        <Grid Grid.Row="1" x:Name="ContentRoot" Margin="0,0,0,0">
+            <telerikPrimitives:RadBusyIndicator Name="Waiter" HorizontalAlignment="Center"  VerticalAlignment="Center" Grid.Row="1" IsRunning="True"/>
+            <telerikPrimitives:RadDataBoundListBox
+            x:Name="itemListView"
+            AutomationProperties.AutomationId="ItemListView"
+            AutomationProperties.Name="Items In Group"
+            
+            Grid.Row="1"
+        Margin="20,0,0,0"
+            ItemsSource="{Binding HymnsBySeason}"
+            
+            IsSynchronizedWithCurrentItem="False"
+            EmptyContent="" ShowPullToRefreshWhenNoData="True" EmptyContentDisplayMode="DataSourceEmpty" IsPullToRefreshEnabled="True" RefreshRequested="Reload" PullToRefreshIndicatorStyle="{StaticResource PullToRefreshIndicatorControlStyle}" UseOptimizedManipulationRouting="False" SelectionChanged="SelectedHymnByName" EmptyContentTemplate="{StaticResource EmptyDataTemplate}">
+                <telerikPrimitives:RadDataBoundListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Grid.Column="1" VerticalAlignment="Top" Margin="0,12,0,0">
+                            <TextBlock Text="{Binding Service_Name}" FontSize="40" Style="{StaticResource LongListSelectorGroupHeaderLetterTileStyle}"/>
+                         
+                        </StackPanel>
+                    </DataTemplate>
+                </telerikPrimitives:RadDataBoundListBox.ItemTemplate>
+            </telerikPrimitives:RadDataBoundListBox>
+        </Grid>
+    </Grid>
+
+</phone:PhoneApplicationPage>
